@@ -1,0 +1,56 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/usgs/shakemap:
+      branch: main
+      repo: https://github.com/usgs/shakemap
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/usgs/shakemap git:
+        commands:
+        - /usr/bin/env sh .sqa/script.snoopy-smalt-kingfisher.sh
+        container: qc.acc_pasty-indigo-cockroach
+  QC.Doc:
+    repos:
+      github.com/usgs/shakemap find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.scaly-denim-llama.sh
+        container: qc.doc_squirrely-chartreuse-manatee
+      github.com/usgs/shakemap git:
+        commands:
+        - /usr/bin/env sh .sqa/script.homey-taupe-saola.sh
+        container: qc.doc_crappy-tomato-warthog
+      github.com/usgs/shakemap markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.scanty-jade-sloth.sh
+        container: qc.doc_woolly-sepia-jaguar
+      github.com/usgs/shakemap restructuredtext-lint:
+        commands:
+        - /usr/bin/env sh .sqa/script.cheeky-wisteria-gecko.sh
+        container: qc.doc_snappy-russet-shrew
+  QC.Lic:
+    repos:
+      github.com/usgs/shakemap licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.silly-sangria-grasshopper.sh
+        container: qc.lic_snappy-magenta-wolverine
+  QC.Sty:
+    repos:
+      github.com/usgs/shakemap jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-gamboge-kakapo.sh
+        container: qc.sty_seedy-magenta-gerbil
+  QC.Ver:
+    repos:
+      github.com/usgs/shakemap get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lanky-apricot-dingo.sh
+        container: qc.ver_ugly-brass-budgerigar
+timeout: 5400
